@@ -3,6 +3,8 @@ package Modelo;
 import Modelo.Users.Profesor;
 import Modelo.Users.Estudiante;
 import Modelo.Users.Usuario;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -14,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import supabase.Filter;
@@ -25,19 +28,28 @@ public class Servicio {
     static private Computador[] computers = new Computador[0];
     static private Sesion[] active_sessions = new Sesion[0];
     static private Sala currentManagmentSalas = new Sala();
-    static private Estudiante student;
-    static private Profesor teacher;
+    static private Estudiante student = null;
+    static private Profesor teacher = null;
+    static public String role = "";
+    static private Date login_time;
+    static private Date logout_time;
     static private Supabase supabase = new Supabase("https://rrkotxwnjddvzolduptl.supabase.co/", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJya290eHduamRkdnpvbGR1cHRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEzNzU3NTMsImV4cCI6MjAyNjk1MTc1M30.f_wch4K52M85qijPY3ovSynCUoH2ax9eyknWnIJDmuQ");
     
     static public JSONObject iniciarSesion(String email, String password){
         JSONObject data = supabase.auth.LoginWithEmailAndPassword(email, password);
         if (data.has("user")){
             //El login fue correcto
+            login_time = new Date();
             sessionRole = data.getJSONObject("user").getString("role");
             if (sessionRole.equals("admin")){
                 teacher = new Profesor(data);
+                role = "profesor";
             }else{
-                 student = new Estudiante(data);
+                student = new Estudiante(data);
+                JSONArray response = supabase.from("joint_responsability_hours").select("*", new Filter("user_id", "eq", student.getId()));
+                System.out.println(response.toString());
+                student.setJoint_responsability_hours(response.getJSONObject(0).getFloat("joint_responsability_hours"));
+                role = "estudiante";
             }
         }else{
             //El login falló
@@ -48,6 +60,40 @@ public class Servicio {
             return error;
         }
         return data;
+    }
+    
+    static public void cerrarSesion(){
+        if ("estudiante".equals(role)){
+            logout_time = new Date();
+            Float work_time = calcularDiferenciaHoras(login_time, logout_time);
+            System.out.println("Tiempo en linea: " + work_time);
+            HashMap <String, Float> updateInfo = new HashMap<>();
+            Float new_time = student.getJoint_responsability_hours() - work_time;
+            updateInfo.put("joint_responsability_hours", new_time);
+            JSONObject body = new JSONObject(updateInfo);
+            supabase.from("joint_responsability_hours").update(body, new Filter("user_id", "eq", student.getId()));
+            student = null;
+            teacher = null;
+            sessionRole = null;
+        }
+    }
+    
+    public static float calcularDiferenciaHoras(Date inicio, Date fin) {
+        // Calcula la diferencia en milisegundos
+        long diffInMillies = fin.getTime() - inicio.getTime();
+        
+        // Convierte la diferencia a horas en decimal
+        float diffInHours = (float) TimeUnit.MILLISECONDS.toMinutes(diffInMillies) / 60;
+
+        // Redondea a 1 decimal
+        BigDecimal bd = new BigDecimal(Float.toString(diffInHours));
+        bd = bd.setScale(1, RoundingMode.HALF_UP);
+
+        return bd.floatValue();
+    }
+
+    public static Estudiante getStudent() {
+        return student;
     }
     
     static public Sala[] updateRooms(){
@@ -104,17 +150,19 @@ public class Servicio {
         }
     }
     
-    static public void addActiveSession(String docNumber, Integer sala_id, String computer_id){
+    static public Sesion addActiveSession(String docNumber, Integer sala_id, String computer_id){
         JSONArray findUser = supabase.from("users").selecteq("*", "document_number", docNumber);
         if (findUser.length() == 0){
             System.out.println("No se encontro el usuario");
-            return;
+            return new Sesion();
         }
         Usuario findUsuario = new Usuario(findUser.getJSONObject(0));
         JSONArray body = new JSONArray("[{\"sala_id\":\"" + sala_id + "\", \"computer_id\":\"" + computer_id + "\", \"user_id\":\"" + findUsuario.getId() + "\"}]");
         System.out.println(body.toString());
-        supabase.from("active_sessions").insert(body);
+        JSONArray newSessionResponse = supabase.from("active_sessions").insert(body);
+        Sesion newSession = new Sesion(currentManagmentSalas, findUsuario, new Computador("", sala_id, 0));
         updateActiveSessions(sala_id);
+        return newSession;
     }
     
     static public void deleteActiveSession(String uuid, int sala_id){

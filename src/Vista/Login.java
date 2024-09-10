@@ -129,7 +129,7 @@ public class Login extends javax.swing.JFrame {
         jPanel6.setOpaque(false);
         jPanel6.setPreferredSize(new java.awt.Dimension(350, 250));
         java.awt.GridBagLayout jPanel6Layout = new java.awt.GridBagLayout();
-        jPanel6Layout.columnWidths = new int[] {100};
+        jPanel6Layout.columnWidths = new int[] {120};
         jPanel6Layout.rowHeights = new int[] {50};
         jPanel6.setLayout(jPanel6Layout);
 
@@ -144,6 +144,7 @@ public class Login extends javax.swing.JFrame {
 
         panelRound4.setBackground(UIConfig.PRIMARY900);
         panelRound4.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        panelRound4.setPreferredSize(new java.awt.Dimension(168, 35));
         panelRound4.setRoundBottomLeft(20);
         panelRound4.setRoundBottomRight(20);
         panelRound4.setRoundTopLeft(20);
@@ -152,7 +153,7 @@ public class Login extends javax.swing.JFrame {
 
         panelRound3.setBackground(UIConfig.getBg(300));
         panelRound3.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 5, 3, 5));
-        panelRound3.setPreferredSize(new java.awt.Dimension(164, 25));
+        panelRound3.setPreferredSize(new java.awt.Dimension(164, 30));
         panelRound3.setRoundBottomLeft(15);
         panelRound3.setRoundBottomRight(15);
         panelRound3.setRoundTopLeft(15);
@@ -163,8 +164,9 @@ public class Login extends javax.swing.JFrame {
         username.setColumns(15);
         username.setFont(UIConfig.getDefaultFont());
         username.setForeground(UIConfig.getForeground());
-        username.setText("lleald@unal.edu.co");
         username.setBorder(null);
+        username.setNextFocusableComponent(password);
+        username.setPreferredSize(new java.awt.Dimension(150, 20));
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
@@ -192,6 +194,7 @@ public class Login extends javax.swing.JFrame {
 
         panelRound5.setBackground(UIConfig.PRIMARY900);
         panelRound5.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        panelRound5.setPreferredSize(new java.awt.Dimension(78, 35));
         panelRound5.setRoundBottomLeft(20);
         panelRound5.setRoundBottomRight(20);
         panelRound5.setRoundTopLeft(20);
@@ -201,6 +204,7 @@ public class Login extends javax.swing.JFrame {
         panelRound6.setBackground(UIConfig.getBg(300)
         );
         panelRound6.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 5, 3, 5));
+        panelRound6.setPreferredSize(new java.awt.Dimension(74, 30));
         panelRound6.setRoundBottomLeft(15);
         panelRound6.setRoundBottomRight(15);
         panelRound6.setRoundTopLeft(15);
@@ -210,8 +214,14 @@ public class Login extends javax.swing.JFrame {
         password.setBackground(UIConfig.getBg(300));
         password.setFont(UIConfig.getDefaultFont());
         password.setForeground(UIConfig.getForeground());
-        password.setText("acasiadmin");
         password.setBorder(null);
+        password.setNextFocusableComponent(btnLogin);
+        password.setPreferredSize(new java.awt.Dimension(64, 20));
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
         panelRound6.add(password);
 
         panelRound5.add(panelRound6);
@@ -332,6 +342,10 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnLogin;

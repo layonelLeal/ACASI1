@@ -6,6 +6,8 @@ import Vista.Login;
 import Vista.utils.UIConfig;
 import Vista.utils.Utils;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import org.json.JSONObject;
 
 public class LoginController{
@@ -14,7 +16,15 @@ public class LoginController{
     public LoginController(Login login) {
         this.login = login;
         this.login.btnLogin.addActionListener((java.awt.event.ActionEvent evt) -> {
-            btnLoginActionPerformed(evt);
+            btnLoginActionPerformed();
+        });
+        this.login.password.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e){
+                if(e.getKeyCode() == 10){
+                    btnLoginActionPerformed();
+                }
+            }
         });
         this.login.btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -49,7 +59,7 @@ public class LoginController{
         login.setLocationRelativeTo(null);
     }
     
-    private void btnLoginActionPerformed(ActionEvent e){
+    private void btnLoginActionPerformed(){
         login.isLoading(true);
         String passwordFormated = new String(login.password.getPassword());
         String usernameText = login.username.getText();

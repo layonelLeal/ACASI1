@@ -20,6 +20,11 @@ public class ViewSalas extends javax.swing.JPanel {
             ComponentSala newSala = new ComponentSala(sala, JF);
             contentSalas.add(newSala);
         }
+        if(Servicio.role == "estudiante"){
+            contAddButton.setVisible(false);
+            addButton.setEnabled(false);
+            addButton.setVisible(false);
+        }
         addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
@@ -30,7 +35,7 @@ public class ViewSalas extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         contentSalas = new Vista.utils.PanelRound();
-        jPanel2 = new javax.swing.JPanel();
+        contAddButton = new javax.swing.JPanel();
         addButton = new Vista.utils.PanelRound();
         jLabel1 = new javax.swing.JLabel();
 
@@ -45,10 +50,10 @@ public class ViewSalas extends javax.swing.JPanel {
         contentSalas.setLayout(new java.awt.GridLayout(2, 0, 10, 10));
         add(contentSalas, java.awt.BorderLayout.CENTER);
 
-        jPanel2.setBackground(UIConfig.getBg(300)
+        contAddButton.setBackground(UIConfig.getBg(300)
         );
-        jPanel2.setPreferredSize(new java.awt.Dimension(0, 55));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        contAddButton.setPreferredSize(new java.awt.Dimension(0, 55));
+        contAddButton.setLayout(new java.awt.GridBagLayout());
 
         addButton.setBackground(new Color(0, 170, 80));
         addButton.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -82,9 +87,9 @@ public class ViewSalas extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         addButton.add(jLabel1, gridBagConstraints);
 
-        jPanel2.add(addButton, new java.awt.GridBagConstraints());
+        contAddButton.add(addButton, new java.awt.GridBagConstraints());
 
-        add(jPanel2, java.awt.BorderLayout.SOUTH);
+        add(contAddButton, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseExited
@@ -103,8 +108,8 @@ public class ViewSalas extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Vista.utils.PanelRound addButton;
+    private javax.swing.JPanel contAddButton;
     private Vista.utils.PanelRound contentSalas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

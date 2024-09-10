@@ -43,7 +43,7 @@
               <Dimension value="[800, 400]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[200, 150]"/>
+              <Dimension value="[350, 150]"/>
             </Property>
             <Property name="roundBottomLeft" type="int" value="30"/>
             <Property name="roundBottomRight" type="int" value="30"/>
@@ -78,7 +78,7 @@
                 </Property>
                 <Property name="opaque" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[300, 25]"/>
+                  <Dimension value="[400, 25]"/>
                 </Property>
               </Properties>
 
@@ -94,7 +94,7 @@
                     <Property name="text" type="java.lang.String" value="Tama&#xf1;o de letra (16): "/>
                   </Properties>
                 </Component>
-                <Component class="Vista.components.CustomInput" name="customInput1">
+                <Component class="Vista.components.CustomInput" name="fontSize">
                   <Properties>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[25, 40]"/>
@@ -103,6 +103,14 @@
                       <Dimension value="[170, 35]"/>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="Vista.components.CustomButton" name="customButton2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Confirmar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton2ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="Vista.components.CustomLabel" name="customLabel2">
                   <Properties>

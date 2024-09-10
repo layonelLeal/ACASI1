@@ -5,25 +5,19 @@ public class AbstractUser {
     private String token;
     private String email;
     private String role;
-    private Integer document;
-    private String name;
-    private String lastname;
-    private String facultad;
+    private String id;
     
     public AbstractUser (){
         this.token = "";
         this.email = "";
         this.role = "";
-        this.document = 0;
-        this.name = "";
-        this.lastname = "";
-        this.facultad = "";
     }
     
     public AbstractUser (JSONObject userData){
-        this.email = (String) userData.getJSONObject("user").get("email");
-        this.token = (String) userData.get("access_token");
-        this.role = (String) userData.getJSONObject("user").getString("role");
+        this.email = userData.getJSONObject("user").getString("email");
+        this.token = userData.getString("access_token");
+        this.role = userData.getJSONObject("user").getString("role");
+        this.id = userData.getJSONObject("user").getString("id");
     }
 
     public AbstractUser(JSONObject user_data, Boolean isComplete) {
@@ -31,12 +25,8 @@ public class AbstractUser {
             this.token = (String) user_data.getJSONObject("user").get("email");
             this.email = (String) user_data.getJSONObject("user").get("email");
             this.role = (String) user_data.getJSONObject("user").get("email");
-            this.document = (Integer) user_data.getJSONObject("user").get("email");
-            this.name = (String) user_data.getJSONObject("user").get("email");
-            this.lastname = (String) user_data.getJSONObject("user").get("email");
-            this.facultad = (String) user_data.getJSONObject("user").get("email");
         }
-    }    
+    }
    
     public String getRole(){
         return this.role;
@@ -49,8 +39,13 @@ public class AbstractUser {
     public String getToken (){
         return token;
     }
-    
-    public void show(){
-        System.out.println("Nombre: " + name);
+
+    public String getEmail() {
+        return email;
     }
+
+    public String getId() {
+        return id;
+    }
+    
 }

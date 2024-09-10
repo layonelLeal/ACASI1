@@ -60,8 +60,12 @@ public class ComponentSala extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
-        ManagmentSala MS = new ManagmentSala(sala);
-        JFPrincipal.changeContent(MS);        // TODO add your handling code here:
+        try {
+            ManagmentSala MS = new ManagmentSala(sala, JFPrincipal);
+            JFPrincipal.changeContent(MS);
+        } catch (Exception e) {
+            name.setText(e.getMessage());
+        }
     }//GEN-LAST:event_customButton1ActionPerformed
 
 

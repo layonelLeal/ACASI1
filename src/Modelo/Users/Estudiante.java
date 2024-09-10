@@ -1,19 +1,20 @@
 package Modelo.Users;
 
-import Modelo.Users.AbstractUser;
-import java.util.Scanner;
 import org.json.JSONObject;
 
-/**
- *
- * @author layonel
- */
 public class Estudiante extends AbstractUser{
-    private Integer horasCorresponsabilidad;
+    private Float joint_responsability_hours = 0F;
 
     public Estudiante(JSONObject userData) {
         super(userData);
-        this.horasCorresponsabilidad = 1;
     }
-  
+
+    public Float getJoint_responsability_hours() {
+        return joint_responsability_hours;
+    }
+
+    public void setJoint_responsability_hours(Float joint_responsability_hours) {
+        this.joint_responsability_hours = joint_responsability_hours;
+    }
+
 }

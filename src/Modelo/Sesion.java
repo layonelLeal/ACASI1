@@ -13,6 +13,10 @@ public class Sesion {
     private Usuario usuario;
     private Sala sala;
 
+    public Sesion() {
+        this.usuario = new Usuario("", "", 0, "", "", "");
+    }
+    
     public Sesion(Sala sala, Usuario usuario, Computador computador) {
         this.usuario = usuario;
         this.computador = computador;

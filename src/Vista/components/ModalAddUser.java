@@ -5,6 +5,8 @@
 package Vista.components;
 
 import Modelo.Servicio;
+import Modelo.Sesion;
+import Vista.AdministrarUsuarios;
 import Vista.ManagmentSala;
 import Vista.utils.UIConfig;
 
@@ -26,6 +28,8 @@ public class ModalAddUser extends javax.swing.JDialog {
         this.computer_id = computer_id;
         this.sala_id = sala_id;
         initComponents();
+        newUser.setVisible(false);
+        newUser.setEnabled(false);
     }
 
     /**
@@ -37,127 +41,128 @@ public class ModalAddUser extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        title1 = new Vista.components.Title();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        inputDocNumber = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        btnAdd = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        customLabel1 = new Vista.components.CustomLabel();
+        inputDocNumber = new Vista.components.CustomInput();
+        customButton1 = new Vista.components.CustomButton("Cancelar", 2);
+        customButton2 = new Vista.components.CustomButton("Añador", 1);
+        jPanel2 = new javax.swing.JPanel();
+        errorMessage = new Vista.components.CustomLabel();
+        newUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(UIConfig.getBg(500)
+        );
+        setMinimumSize(new java.awt.Dimension(300, 150));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(400, 250));
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title1.setText("Añadir Usuario");
+        title1.setPreferredSize(new java.awt.Dimension(139, 37));
+        getContentPane().add(title1, java.awt.BorderLayout.PAGE_START);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Añadir Usuario");
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jPanel1.setMinimumSize(new java.awt.Dimension(100, 90));
+        jPanel1.setName(""); // NOI18N
+        jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 150));
+        jPanel1.setLayout(new java.awt.GridLayout(2, 0, 10, 15));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Numero de Documento: ");
+        customLabel1.setText("Numero de Documento:");
+        jPanel1.add(customLabel1);
+        jPanel1.add(inputDocNumber);
 
-        inputDocNumber.setBackground(new java.awt.Color(204, 204, 204));
-        inputDocNumber.setColumns(15);
-        inputDocNumber.setBorder(null);
-
-        jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
-
-        btnAdd.setBackground(new java.awt.Color(153, 255, 153));
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAdd.setText("Añadir");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        customButton1.setText("Cancelar");
+        customButton1.setStyle(2);
+        customButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                customButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(customButton1);
 
-        btnCancel.setBackground(new java.awt.Color(255, 153, 153));
-        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancel.setText("Cancelar");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        customButton2.setText("Añadir");
+        customButton2.setStyle(1);
+        customButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                customButton2ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator1)
-                                    .addComponent(inputDocNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(30, 30, 30))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(inputDocNumber))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
+        jPanel1.add(customButton2);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        errorMessage.setForeground(new java.awt.Color(255, 51, 51));
+        errorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        errorMessage.setText(" ");
+        jPanel2.add(errorMessage);
+
+        newUser.setText("Añadir Usuario");
+        newUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newUserActionPerformed(evt);
+            }
+        });
+        jPanel2.add(newUser);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnCancelActionPerformed
+    }//GEN-LAST:event_customButton1ActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void customButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton2ActionPerformed
         String docNumber = inputDocNumber.getText();
+        newUser.setVisible(false);
+        newUser.setEnabled(false);
+        errorMessage.setText("...");
         if (docNumber.isEmpty()){
-            System.out.println("Se necesita un Numero de documento");
+            errorMessage.setText("Se necesita un Numero de documento.");
             return;
         }
         System.out.println(docNumber);
         String new_computer_id = computer_id.toString();
-        Servicio.addActiveSession(docNumber, sala_id, new_computer_id);
+        Sesion sesion =Servicio.addActiveSession(docNumber, sala_id, new_computer_id);
+        
+        if (sesion.getUsuario().getDocument_number() == 0){
+            errorMessage.setText("No se ecnotró un usuario.");
+            newUser.setVisible(true);
+            newUser.setEnabled(true);
+            return;
+        }
         
         mgs.revalidate();
         mgs.repaint();
         mgs.updateUI();
         this.setVisible(false);
+        errorMessage.setText("");
         this.dispose();
         mgs.update();
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_customButton2ActionPerformed
+
+    private void newUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserActionPerformed
+        AdministrarUsuarios AU = new AdministrarUsuarios();
+        mgs.JFPrincipal.changeContent(AU);
+        this.dispose();
+    }//GEN-LAST:event_newUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JTextField inputDocNumber;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private Vista.components.CustomButton customButton1;
+    private Vista.components.CustomButton customButton2;
+    private Vista.components.CustomLabel customLabel1;
+    private Vista.components.CustomLabel errorMessage;
+    private Vista.components.CustomInput inputDocNumber;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton newUser;
+    private Vista.components.Title title1;
     // End of variables declaration//GEN-END:variables
 }

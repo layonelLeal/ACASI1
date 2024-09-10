@@ -42,7 +42,6 @@ public class UIConfig {
 
     private static final String PRIMARYFONT = "Segoe UI";
 
-    // Tamaños de texto
     public static Integer text_default = 14;
     public static Integer text_sm = 12;
     public static Integer text_md = 14;
@@ -56,6 +55,7 @@ public class UIConfig {
 
     private static final String CONFIG_FILE = "config.properties";
     private static final String DARK_MODE_KEY = "darkMode";
+    private static final String TEXT_SIZE_KEY = "textSize";
 
     static {
         loadPreferences();
@@ -69,6 +69,8 @@ public class UIConfig {
         try (FileInputStream in = new FileInputStream(CONFIG_FILE)) {
             properties.load(in);
             darkMode = Boolean.parseBoolean(properties.getProperty(DARK_MODE_KEY, "false"));
+            Integer savedTextSize = Integer.parseInt(properties.getProperty(TEXT_SIZE_KEY, text_default.toString()));
+            updateSize(savedTextSize);
         } catch (IOException e) {
             System.out.println("No se pudo cargar el archivo de configuración. Usando valores por defecto.");
         }
@@ -80,6 +82,7 @@ public class UIConfig {
     private static void savePreferences() {
         Properties properties = new Properties();
         properties.setProperty(DARK_MODE_KEY, darkMode.toString());
+        properties.setProperty(TEXT_SIZE_KEY, text_default.toString());
         try (FileOutputStream out = new FileOutputStream(CONFIG_FILE)) {
             properties.store(out, "Configuración de UI");
         } catch (IOException e) {
@@ -90,7 +93,7 @@ public class UIConfig {
     /**
      * Actualiza los tamaños de texto según el tamaño por defecto.
      *
-     * @param defaultSize
+     * @param defaultSize El tamaño de texto por defecto.
      */
     public static void updateSize(Integer defaultSize) {
         text_default = defaultSize;
@@ -101,6 +104,7 @@ public class UIConfig {
         text_2xl = text_default + 6;
         text_3xl = text_default + 8;
         text_4xl = text_default + 10;
+        savePreferences(); // Guarda la preferencia actualizada
     }
 
     /**
@@ -259,6 +263,16 @@ public class UIConfig {
     public static void changeMode() {
         darkMode = !darkMode;
         savePreferences();
+    }
+    
+    
+    /**
+     * Cambia el tamaño de la letra al tamaño especificado y guarda la preferencia.
+     *
+     * @param newSize El nuevo tamaño de la letra.
+     */
+    public static void changeTextSize(Integer newSize) {
+        updateSize(newSize);
     }
     
     public static Color getSeccessColor(int shade){

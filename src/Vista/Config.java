@@ -19,6 +19,15 @@ public class Config extends javax.swing.JPanel {
     public Config() {
         initComponents();
     }
+    
+    private void confirm(){
+        String[] buttons = {"Aceptar", "Cancelar"};
+        int optionSelected = JOptionPane.showOptionDialog(null, "¿Desea reiniciar la aplicación para efectuar los cambios?", "Reiniciar Aplicación", 0, JOptionPane.QUESTION_MESSAGE, null, buttons, "Aceptar");
+        if (optionSelected == 0){
+            System.out.println("Cerrando...");
+            System.exit(0);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,7 +45,8 @@ public class Config extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         customLabel1 = new Vista.components.CustomLabel();
-        customInput1 = new Vista.components.CustomInput();
+        fontSize = new Vista.components.CustomInput();
+        customButton2 = new Vista.components.CustomButton();
         customLabel2 = new Vista.components.CustomLabel();
         jPanel3 = new javax.swing.JPanel();
         customButton1 = new Vista.components.CustomButton();
@@ -52,7 +62,7 @@ public class Config extends javax.swing.JPanel {
         );
         panelRound1.setBorder(javax.swing.BorderFactory.createEmptyBorder(25, 25, 25, 25));
         panelRound1.setMaximumSize(new java.awt.Dimension(800, 400));
-        panelRound1.setPreferredSize(new java.awt.Dimension(200, 150));
+        panelRound1.setPreferredSize(new java.awt.Dimension(350, 150));
         panelRound1.setRoundBottomLeft(30);
         panelRound1.setRoundBottomRight(30);
         panelRound1.setRoundTopLeft(30);
@@ -68,15 +78,23 @@ public class Config extends javax.swing.JPanel {
 
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(300, 25));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 25));
         jPanel1.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
 
         customLabel1.setText("Tamaño de letra (16): ");
         jPanel1.add(customLabel1);
 
-        customInput1.setMaximumSize(new java.awt.Dimension(25, 40));
-        customInput1.setPreferredSize(new java.awt.Dimension(170, 35));
-        jPanel1.add(customInput1);
+        fontSize.setMaximumSize(new java.awt.Dimension(25, 40));
+        fontSize.setPreferredSize(new java.awt.Dimension(170, 35));
+        jPanel1.add(fontSize);
+
+        customButton2.setText("Confirmar");
+        customButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(customButton2);
 
         customLabel2.setText("Cambiar Modo");
         jPanel1.add(customLabel2);
@@ -110,20 +128,25 @@ public class Config extends javax.swing.JPanel {
 
     private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
         UIConfig.changeMode();
-        String[] buttons = {"Aceptar", "Cancelar"};
-        int optionSelected = JOptionPane.showOptionDialog(null, "¿Desea reiniciar la aplicación para efectuar los cambios?", "Reiniciar Aplicación", 0, JOptionPane.QUESTION_MESSAGE, null, buttons, "Aceptar");
-        if (optionSelected == 0){
-            System.out.println("Cerrando...");
-            System.exit(0);
-        }
+        confirm();
     }//GEN-LAST:event_customButton1ActionPerformed
+
+    private void customButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton2ActionPerformed
+        int size = Integer.parseInt(fontSize.getText());
+        UIConfig.changeTextSize(size);
+        updateUI();
+        revalidate();
+        repaint();
+        confirm();
+    }//GEN-LAST:event_customButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Vista.components.CustomButton customButton1;
-    private Vista.components.CustomInput customInput1;
+    private Vista.components.CustomButton customButton2;
     private Vista.components.CustomLabel customLabel1;
     private Vista.components.CustomLabel customLabel2;
+    private Vista.components.CustomInput fontSize;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
